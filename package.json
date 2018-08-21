@@ -4,6 +4,7 @@
   "description": "Seneca Plugin that exposes an operations server for seneca services",
   "main": "index.js",
   "scripts": {
+    "release": "standard-version",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -29,6 +30,7 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-prettier": "^2.6.2",
-    "eslint-plugin-react": "^7.11.1"
+    "eslint-plugin-react": "^7.11.1",
+    "standard-version": "^4.4.0"
   }
 }
