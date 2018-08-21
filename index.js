@@ -1,6 +1,7 @@
 const assert = require('assert')
 const Fastify = require('fastify')
 const Metrics = require('./lib/metrics')
+const HealthChecks = require('./lib/health');
 
 const PLUGIN_NAME = 'ops-server'
 const DEFAULT_HOST = '127.0.0.1'
@@ -14,9 +15,11 @@ function OpsServer(options) {
   assert(options.pinoInstance, 'Please provide pinoInstance')
 
   const fastify = initServer(options)
+  const { healthCheckOptions } = options
 
   //Register Routes
   fastify.register(Metrics)
+  fastify.register(HealthChecks, healthCheckOptions)
 
   fastify
     .listen(port, host)
