@@ -21,8 +21,8 @@
   },
   "homepage": "https://github.com/flexdrive/seneca-ops-server#readme",
   "dependencies": {
-    "@flexdrive/fd-health-check": "^0.6.1",
-    "fastify": "^1.9.0",
+    "@flexdrive/fd-health-check": "^0.6.2",
+    "fastify": "^1.10.0",
     "prom-client": "^11.1.1"
   },
   "devDependencies": {
