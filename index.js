@@ -2,6 +2,7 @@ const assert = require('assert')
 const Fastify = require('fastify')
 const Metrics = require('./lib/metrics')
 const HealthChecks = require('./lib/health');
+const { promisify } = require('util');
 
 const PLUGIN_NAME = 'ops-server'
 const DEFAULT_HOST = '127.0.0.1'
@@ -10,13 +11,17 @@ const DEFAULT_PORT = 19999
 function OpsServer(options) {
   const seneca = this
 
+
   const host = options.host || DEFAULT_HOST
   const port = options.port || DEFAULT_PORT
   assert(options.pinoInstance, 'Please provide pinoInstance')
 
   const fastify = initServer(options)
   const { healthCheckOptions } = options
-
+  const senecaAct = promisify(seneca.act).bind(seneca)
+  fastify.decorate('seneca', seneca)
+  fastify.decorate('senecaAct', senecaAct)
+  
   //Register Routes
   fastify.register(Metrics)
   fastify.register(HealthChecks, healthCheckOptions)
