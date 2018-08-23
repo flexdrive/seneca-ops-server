@@ -1,8 +1,6 @@
-const assert = require('assert')
 const Fastify = require('fastify')
 const Metrics = require('./lib/metrics')
-const HealthChecks = require('./lib/health');
-const { promisify } = require('util');
+const HealthChecks = require('./lib/healthchecks')
 
 const PLUGIN_NAME = 'ops-server'
 const DEFAULT_HOST = '127.0.0.1'
@@ -11,20 +9,17 @@ const DEFAULT_PORT = 19999
 function OpsServer(options) {
   const seneca = this
 
-
   const host = options.host || DEFAULT_HOST
   const port = options.port || DEFAULT_PORT
-  assert(options.pinoInstance, 'Please provide pinoInstance')
+  const logOpts = options.logOpts
+  const signalTimeout = options.healthCheckOpts.signalTimeout || 5000
 
-  const fastify = initServer(options)
-  const { healthCheckOptions } = options
-  const senecaAct = promisify(seneca.act).bind(seneca)
-  fastify.decorate('seneca', seneca)
-  fastify.decorate('senecaAct', senecaAct)
-  
+  const serverInit = { logger: logOpts }
+  const fastify = Fastify(serverInit)
+
   //Register Routes
   fastify.register(Metrics)
-  fastify.register(HealthChecks, healthCheckOptions)
+  fastify.register(HealthChecks, { ...(options.healthchecks || {}) })
 
   fastify
     .listen(port, host)
@@ -36,15 +31,14 @@ function OpsServer(options) {
     })
 
   process.on('SIGTERM', () => {
-    fastify.close()
+    seneca.log.info(
+      'SIGTERM recv.  Ops Server shutdown start: ',
+      new Date().toISOString()
+    )
+    setTimeout(fastify.close(), signalTimeout)
   })
 
   return PLUGIN_NAME
-}
-
-function initServer(opts) {
-  const fastify = Fastify({ logger: opts.pinoInstance })
-  return fastify
 }
 
 module.exports = OpsServer
