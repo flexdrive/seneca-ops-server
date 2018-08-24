@@ -11,7 +11,7 @@ function OpsServer(options) {
 
   const host = options.host || DEFAULT_HOST
   const port = options.port || DEFAULT_PORT
-  const logOpts = options.logOpts
+  const logOpts = options.logOpts || false
   const signalTimeout = options.healthCheckOpts.signalTimeout || 5000
 
   const serverInit = { logger: logOpts }
