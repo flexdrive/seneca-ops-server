@@ -35,7 +35,7 @@ function OpsServer(options) {
       'SIGTERM recv.  Ops Server shutdown start: ',
       new Date().toISOString()
     )
-    setTimeout(fastify.close(), signalTimeout)
+    setTimeout(fastify.close, signalTimeout)
   })
 
   return PLUGIN_NAME
