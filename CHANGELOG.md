@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="0.3.3"></a>
+## [0.3.3](https://github.com/flexdrive/seneca-ops-server/compare/v0.3.2...v0.3.3) (2018-08-24)
+
+
+### Bug Fixes
+
+* **timeout:** use a function for timeout callback to close fastify ([b7f5cfe](https://github.com/flexdrive/seneca-ops-server/commit/b7f5cfe))
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](https://github.com/flexdrive/seneca-ops-server/compare/v0.3.1...v0.3.2) (2018-08-24)
 

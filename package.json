@@ -1,6 +1,6 @@
 {
   "name": "@flexdrive/seneca-ops-server",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Seneca Plugin that exposes an operations server for seneca services",
   "main": "index.js",
   "scripts": {
