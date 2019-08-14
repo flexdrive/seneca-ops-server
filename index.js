@@ -15,7 +15,7 @@ function OpsServer(options) {
   const signalTimeout = options.healthCheckOpts.signalTimeout || 5000
 
   const serverInit = { logger: logOpts }
-  const fastify = Fastify(serverInit)
+  const fastify = options.fastify || Fastify(serverInit)
 
   //Register Routes
   fastify.register(Metrics)
