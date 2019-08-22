@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.6](https://github.com/flexdrive/seneca-ops-server/compare/v0.3.5...v0.3.6) (2019-08-22)
+
+
+### Bug Fixes
+
+* Do not start fastify if fastify instance passed in ([d542fbf](https://github.com/flexdrive/seneca-ops-server/commit/d542fbf))
+
+
+
 ### [0.3.5](https://github.com/flexdrive/seneca-ops-server/compare/v0.3.4...v0.3.5) (2019-08-20)
 
 
