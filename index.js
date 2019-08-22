@@ -21,24 +21,26 @@ function OpsServer(options) {
   fastify.register(Metrics)
   fastify.register(HealthChecks, { ...(options.healthchecks || {}) })
 
-  fastify
-    .listen(port, host)
-    .then(address =>
-      fastify.log.info(`Seneca Ops server listening on ${address}`)
-    )
-    .catch(err => {
-      fastify.log.error('Error Starting Seneca Ops server:', err)
-    })
+  if (!options.fastify) {
+    fastify
+      .listen(port, host)
+      .then(address =>
+        fastify.log.info(`Seneca Ops server listening on ${address}`)
+      )
+      .catch(err => {
+        fastify.log.error('Error Starting Seneca Ops server:', err)
+      })
 
-  process.on('SIGTERM', () => {
-    seneca.log.info(
-      'SIGTERM recv.  Ops Server shutdown start: ',
-      new Date().toISOString()
-    )
-    setTimeout(() => {
-      fastify.close()
-    }, signalTimeout)
-  })
+    process.on('SIGTERM', () => {
+      seneca.log.info(
+        'SIGTERM recv.  Ops Server shutdown start: ',
+        new Date().toISOString()
+      )
+      setTimeout(() => {
+        fastify.close()
+      }, signalTimeout)
+    })
+  }
 
   return PLUGIN_NAME
 }
